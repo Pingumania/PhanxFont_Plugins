@@ -13,3 +13,4 @@
 Addon.lua
 Plugins\CrystalSockets.lua
 Plugins\MRT.lua
+Plugins\oUF_Simple.lua
