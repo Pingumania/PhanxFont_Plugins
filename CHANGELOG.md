@@ -1,2 +1,3 @@
-### Changed in 1.0.0
+PhanxFont Plugins | 1.0.0
+-------------------------
 - First release
