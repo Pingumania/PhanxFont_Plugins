@@ -1,17 +1,12 @@
-This is a updated fork of [PhanxFont](https://github.com/phanx-wow/PhanxFont) by [Phanx](https://github.com/phanx-wow).
+PhanxFont Plugins
 ============
 
-PhanxFont
-============
-
-Simple font replacement and font scaling for the default UI. Type `/font` to
-open the options panel, or find it in the standard Interface Options window.
-
-* [Report a bug on GitHub](https://github.com/pngmn/PhanxFont/issues)
-
+This addon only works with this forked [PhanxFont](https://github.com/pngmn/PhanxFont) version.  
+The following addons are currently supported:
+- Method Raid Tools
+- Crystal Sockets
 
 Credits
 ----------
 
-Based on [tekticles](https://github.com/TekNoLogic/tekticles) by Tekkub, which
-was in turn based on ClearFont2 by Kirkburn.
+[Phanx](https://github.com/phanx-wow) for making the original version of [PhanxFont](https://github.com/phanx-wow/PhanxFont).
