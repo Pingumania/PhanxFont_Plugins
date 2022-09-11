@@ -1,0 +1,13 @@
+## Interface: 90100
+## Version: @project-version@
+
+## Title: PhanxFont Plugins
+## Notes: Plugins for PhanxFont.
+
+## Author: pngmn
+## Dependencies: PhanxFont
+## OptionalDeps: MRT, CrystalSockets, ManiaUI
+
+Addon.lua
+Plugins\CrystalSockets.lua
+Plugins\MRT.lua
