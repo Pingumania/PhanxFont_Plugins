@@ -4,9 +4,11 @@ if not IsAddOnLoaded("oUF_Simple") then return end
 
 if oUF_SimplePlayer.Name then ns.RegisterFontObject(oUF_SimplePlayer.Name) end
 if oUF_SimplePlayer.Health then ns.RegisterFontObject(oUF_SimplePlayer.Health.Text) end
+if oUF_SimplePlayer.Power and oUF_SimplePlayer.Power.Text then ns.RegisterFontObject(oUF_SimplePlayer.Power.Text) end
 if oUF_SimplePlayer.Castbar then ns.RegisterFontObject(oUF_SimplePlayer.Castbar.Text) end
 if oUF_SimpleTarget.Name then ns.RegisterFontObject(oUF_SimpleTarget.Name) end
 if oUF_SimpleTarget.Health then ns.RegisterFontObject(oUF_SimpleTarget.Health.Text) end
+if oUF_SimpleTarget.Power and oUF_SimpleTarget.Power.Text then ns.RegisterFontObject(oUF_SimpleTarget.Power.Text) end
 if oUF_SimpleTarget.Castbar then ns.RegisterFontObject(oUF_SimpleTarget.Castbar.Text) end
 if oUF_SimpleFocus.Name then ns.RegisterFontObject(oUF_SimpleFocus.Name) end
 if oUF_SimpleFocus.Health then ns.RegisterFontObject(oUF_SimpleFocus.Health.Text) end
