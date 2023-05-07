@@ -1,36 +1,51 @@
 local ADDON_NAME, ns = ...
 
-if not IsAddOnLoaded("MRT") then return end
+local _E
 
-ns.RegisterFontObject(ExRTFontNormal)
-ns.RegisterFontObject(ExRTFontGrayTemplate)
-
-if _G["MRTOptionsFrameMethod Raid Tools"] then
-	local MRTOptionsFrame = _G["MRTOptionsFrameMethod Raid Tools"]
-	if MRTOptionsFrame.score then
-		ns.RegisterFontObject(MRTOptionsFrame.score)
+local function getFrameFontStrings(table)
+	for k, t in pairs(table) do
+		if type(t) == "table" and t.IsObjectType then
+			if t:IsObjectType("FontString") then
+				ns.RegisterFontObject(t)
+			elseif t:IsObjectType("Frame") then
+				getFrameFontStrings(t)
+			end
+		end
 	end
-	ns.RegisterFontObject(MRTOptionsFrame.authorLeft)
-	ns.RegisterFontObject(MRTOptionsFrame.authorRight)
-	ns.RegisterFontObject(MRTOptionsFrame.versionLeft)
-	ns.RegisterFontObject(MRTOptionsFrame.versionRight)
-	ns.RegisterFontObject(MRTOptionsFrame.contactLeft)
-	ns.RegisterFontObject(MRTOptionsFrame.contactRight)
-	ns.RegisterFontObject(MRTOptionsFrame.thanksLeft)
-	ns.RegisterFontObject(MRTOptionsFrame.thanksRight)
-	if MRTOptionsFrame.translateLeft then
-		ns.RegisterFontObject(MRTOptionsFrame.translateLeft)
-	end
-	if MRTOptionsFrame.translateRight then
-		ns.RegisterFontObject(MRTOptionsFrame.translateRight)
-	end
-	ns.RegisterFontObject(MRTOptionsFrame.Changelog.Text)
-	ns.RegisterFontObject(MRTOptionsFrame.Changelog.Header)
-
-	ns.RegisterFontObject(MRTOptionsFrame.chkIconMiniMap.text)
-	ns.RegisterFontObject(MRTOptionsFrame.chkHideOnEsc.text)
-
-	hooksecurefunc(_G.MRTOptionsFrame.modulesList, "Update", function(self)
-		_G.MRTOptionsFrame.modulesList:Font("ExRTFontNormal", 14)
-	end)
 end
+
+local function getWidgetFontStrings(widget, size)
+	if not widget.T then
+		for i = 1, #widget.List do
+			ns.RegisterFontObject(widget.List[i].text, i == 1 and size + 2 or size)
+		end
+	else
+		for i = 1, #widget.List do
+			for j = 1, #widget.T do
+				ns.RegisterFontObject(widget.List[i]["text"..j], size)
+			end
+		end
+	end
+end
+
+local function enable()
+	local MRT = _G["MRTOptionsFrame"]
+	local MRTOptionsFrame = _G["MRTOptionsFrameMethod Raid Tools"]
+	
+	if MRT and MRTOptionsFrame then
+		ns.RegisterFontObject(ExRTFontNormal)
+		ns.RegisterFontObject(ExRTFontGrayTemplate)
+		getFrameFontStrings(MRTOptionsFrame)
+
+		MRTOptionsFrame:HookScript("OnShow", function()
+			if _E then return end
+			getWidgetFontStrings(MRT.modulesList, 13)
+			ns.SetPluginFonts()
+			_E = true
+		end)
+
+		ns.UnregisterPlugin("MRT")
+	end
+end
+
+ns.RegisterPlugin("MRT", enable)
