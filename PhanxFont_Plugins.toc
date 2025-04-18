@@ -10,3 +10,4 @@
 
 Addon.lua
 Plugins\MRT.lua
+Plugins\WeakAuras2.lua
