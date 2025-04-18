@@ -1,3 +1,9 @@
+PhanxFont Plugins | 2.1
+-----------------------
+- ToC update for 11.1.0
+- Add Cell plugin
+- Add WeakAuras2 plugin
+
 PhanxFont Plugins | 2.0
 -----------------------
 - ToC update for 10.1.0

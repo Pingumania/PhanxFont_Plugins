@@ -1,12 +1,12 @@
 ## Interface: 110100
 ## Version: @project-version@
-
+## Category: Media
 ## Title: PhanxFont Plugins
 ## Notes: Plugins for PhanxFont.
 ## Author: Pingumania
 
 ## RequiredDeps: PhanxFont
-## OptionalDeps: MRT, CrystalSockets, ManiaUI, oUF_Simple
+## OptionalDeps: Perfekt
 
 Addon.lua
 Plugins\MRT.lua
