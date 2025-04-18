@@ -48,4 +48,6 @@ local function enable()
 	end
 end
 
-ns.RegisterPlugin("MRT", enable)
+EventUtil.ContinueOnAddOnLoaded("MRT", function()
+	ns.RegisterPlugin("MRT", enable)
+end)

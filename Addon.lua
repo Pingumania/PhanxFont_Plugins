@@ -16,7 +16,8 @@ end
 
 function ns.RegisterFontObject(obj, size)
 	if not obj then return end
-	fontObjects[obj] = {}
+	if fontObjects[obj] ~= nil then return end
+	fontObjects[obj] = fontObjects[obj] or {}
 	local font, _, outline = obj:GetFont()
 	if not font then return end
 	fontObjects[obj].size = size
@@ -41,9 +42,9 @@ frame:SetScript("OnEvent", function(self, event, addon)
 		ns.NORMAL     = LibStub("LibSharedMedia-3.0"):Fetch("font", PhanxFontDB.normal)
 		ns.BOLD       = LibStub("LibSharedMedia-3.0"):Fetch("font", PhanxFontDB.bold)
 		ns.DAMAGE     = LibStub("LibSharedMedia-3.0"):Fetch("font", PhanxFontDB.damage)
-	elseif IsAddOnLoaded("PhanxFont_Plugins") then
+	elseif C_AddOns.IsAddOnLoaded("PhanxFont_Plugins") then
 		for plugin, action in pairs(plugins) do
-			if plugin and IsAddOnLoaded(plugin) then
+			if plugin and action and C_AddOns.IsAddOnLoaded(plugin) then
 				action()
 			end
 		end
