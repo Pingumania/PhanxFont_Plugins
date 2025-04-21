@@ -48,7 +48,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 				action()
 			end
 		end
-
+	else
 		SetPluginFonts()
 	end
 end)

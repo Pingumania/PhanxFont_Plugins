@@ -26,9 +26,12 @@ local function GetChildFontInstances()
 	GetChildren(WeakAurasFrame)
 	for _, fontInstance in ipairs(fontInstances) do
 		ns.RegisterFontObject(fontInstance)
+		ns.SetPluginFonts()
 	end
 end
 
 EventUtil.ContinueOnAddOnLoaded("WeakAuras", function()
-	ns.RegisterPlugin("MRT", GetChildFontInstances)
+	ns.RegisterPlugin("WeakAuras", function()
+		C_Timer.After(5, GetChildFontInstances)
+	end)
 end)
