@@ -1,3 +1,13 @@
+### v7 - 2026-07-29
+
+* TOC update for 12.0.7
+* TOC update for Mists 5.5.4
+* TOC update for TBC 2.5.6
+* TOC update for Vanilla 1.15.8
+* Remove Cell, MRT, and WeakAuras2 plugins
+
+*****
+
 ### v6 - 2026-07-29
 
 * Fix WeakAuras2 plugin
