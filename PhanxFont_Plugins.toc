@@ -12,6 +12,3 @@
 ## RequiredDeps: PhanxFont
 
 Addon.lua
-Plugins\MRT.lua
-Plugins\Cell.lua
-Plugins\WeakAuras2.lua
