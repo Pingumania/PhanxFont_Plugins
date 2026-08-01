@@ -1,7 +1,7 @@
 PhanxFont Plugins
 ============
 
-This addon only works with this forked [PhanxFont](https://github.com/pngmn/PhanxFont) version.  
+This addon only works with this forked [PhanxFont](https://github.com/Pingumania/PhanxFont) version.
 The following addons are currently supported:
 - Method Raid Tools
 - Crystal Sockets
