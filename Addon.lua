@@ -1,4 +1,4 @@
-﻿local Addon = _G.PhanxFont
+local Addon = _G.PhanxFont
 local ADDON_NAME, ns = ...
 
 local plugins = {}
