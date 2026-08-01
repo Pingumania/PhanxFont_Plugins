@@ -1,54 +1,76 @@
+local _, ns = ...
 local Addon = _G.PhanxFont
-local ADDON_NAME, ns = ...
 
-local plugins = {}
+local pending = {}
 local fontObjects = {}
 
+--[[ ns.RegisterPlugin(_addon_, _action_)
+Runs `action` once `addon` is loaded, or straight away if it already is.
+--]]
 function ns.RegisterPlugin(addon, action)
-	if not addon then return end
-	plugins[addon] = action
-end
+	if not (addon and action) then
+		return
+	end
 
-function ns.UnregisterPlugin(addon)
-	if not addon then return end
-	plugins[addon] = nil
-end
-
-function ns.RegisterFontObject(obj, size)
-	if not obj then return end
-	if fontObjects[obj] ~= nil then return end
-	fontObjects[obj] = fontObjects[obj] or {}
-	local font, _, outline = obj:GetFont()
-	if not font then return end
-	fontObjects[obj].size = size
-	fontObjects[obj].outline = outline
-end
-
-local function SetPluginFonts()
-	for obj, table in pairs(fontObjects) do
-		if obj then
-			Addon:SetFont(obj, ns.NORMAL, table.size, table.outline)
-			fontObjects[obj] = nil
-		end
+	if C_AddOns.IsAddOnLoaded(addon) then
+		action()
+	else
+		pending[addon] = action
 	end
 end
-ns.SetPluginFonts = SetPluginFonts
+
+--[[ ns.UnregisterPlugin(_addon_)
+Drops a plugin registered with `ns.RegisterPlugin` that has not run yet.
+--]]
+function ns.UnregisterPlugin(addon)
+	pending[addon] = nil
+end
+
+--[[ ns.ApplyFont(_obj_)
+Restyles one registered font object with the current normal font.
+--]]
+function ns.ApplyFont(obj)
+	local info = fontObjects[obj]
+	if info then
+		Addon:SetFont(obj, Addon.Fonts.normal, info.size, info.outline)
+	end
+end
+
+--[[ ns.RegisterFontObject(_obj_[, _size_])
+Takes ownership of a font object, restyling it now and whenever the fonts change.
+`size` defaults to the object's current size.
+--]]
+function ns.RegisterFontObject(obj, size)
+	if not obj then
+		return
+	end
+
+	local font, current, outline = obj:GetFont()
+	if not font then
+		return
+	end
+
+	fontObjects[obj] = {size = size or current, outline = outline}
+	ns.ApplyFont(obj)
+end
+
+--[[ ns.SetPluginFonts()
+Restyles every registered font object. Called automatically after PhanxFont applies its fonts.
+--]]
+function ns.SetPluginFonts()
+	for obj in next, fontObjects do
+		ns.ApplyFont(obj)
+	end
+end
+
+hooksecurefunc(Addon, "SetFonts", ns.SetPluginFonts)
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
-frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-frame:SetScript("OnEvent", function(self, event, addon)
-	if addon == "PhanxFont_Plugins"  then
-		ns.NORMAL     = LibStub("LibSharedMedia-3.0"):Fetch("font", PhanxFontDB.normal)
-		ns.BOLD       = LibStub("LibSharedMedia-3.0"):Fetch("font", PhanxFontDB.bold)
-		ns.DAMAGE     = LibStub("LibSharedMedia-3.0"):Fetch("font", PhanxFontDB.damage)
-	elseif C_AddOns.IsAddOnLoaded("PhanxFont_Plugins") then
-		for plugin, action in pairs(plugins) do
-			if plugin and action and C_AddOns.IsAddOnLoaded(plugin) then
-				action()
-			end
-		end
-	else
-		SetPluginFonts()
+frame:SetScript("OnEvent", function(_, _, addon)
+	local action = pending[addon]
+	if action then
+		pending[addon] = nil
+		action()
 	end
 end)
