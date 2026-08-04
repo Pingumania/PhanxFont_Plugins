@@ -4,7 +4,7 @@
 ## Interface-Vanilla: 11508
 
 ## Title: PhanxFont Plugins
-## Notes: Plugins for PhanxFont.
+## Notes: Plugins for PhanxFont
 ## Category: Media
 ## Author: Pingumania
 ## Version: @project-version@
