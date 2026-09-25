@@ -1,4 +1,4 @@
-## Interface: 120007, 50504, 20506, 11508
+## Interface: 11508, 16001, 120100
 
 ## Title: PhanxFont Plugins
 ## Notes: Plugins for PhanxFont
